@@ -108,7 +108,7 @@ const CARDS: Card[] = [
   {
     title: "Websites",
     description:
-      "Launch professional portfolios, sales pages, or informational sites — no developers needed.",
+      "Launch professional portfolios, sales pages, or informational sites, no developers needed.",
     image: { src: "/examples/website_opt.webp", alt: "Website example" },
   },
   {

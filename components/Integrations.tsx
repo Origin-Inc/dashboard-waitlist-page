@@ -65,7 +65,7 @@ export function Integrations() {
             <span className="font-editorial font-normal italic">and</span>
           </h2>
           <p className="mx-auto mt-5 max-w-[620px] text-[16px] leading-[1.65] text-ink-600 sm:text-[17px]">
-            Odeun plugs into the tools you already love. Your data stays where it lives — Odeun
+            Odeun plugs into the tools you already love. Your data stays where it lives, Odeun
             becomes the interface on top.
           </p>
         </div>
