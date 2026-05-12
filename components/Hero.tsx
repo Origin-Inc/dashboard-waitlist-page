@@ -85,7 +85,7 @@ function HeroCopy() {
       </p>*/}
 
       <div className="mx-auto mt-8 max-w-[560px] text-left sm:mt-10">
-        <WaitlistInline />
+        <WaitlistInline cta="early" />
       </div>
 
       

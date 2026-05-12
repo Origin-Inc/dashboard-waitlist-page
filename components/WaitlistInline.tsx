@@ -3,10 +3,27 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-export function WaitlistInline({ compact = false }: { compact?: boolean }) {
+type CtaVariant = "default" | "founder" | "early";
+
+export function WaitlistInline({
+  compact = false,
+  cta = "default",
+  helper,
+}: {
+  compact?: boolean;
+  cta?: CtaVariant;
+  helper?: string;
+}) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "ok" | "err">("idle");
   const [message, setMessage] = useState<string | null>(null);
+
+  const ctaText =
+    cta === "founder"
+      ? { mobile: "Get access", desktop: "Get Founder Access" }
+      : cta === "early"
+        ? { mobile: "Get access", desktop: "Get Early Access" }
+        : { mobile: "Join", desktop: "Join The Waitlist" };
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -80,8 +97,8 @@ export function WaitlistInline({ compact = false }: { compact?: boolean }) {
             <Spinner />
           ) : (
             <>
-              <span className="sm:hidden">Join</span>
-              <span className="hidden sm:inline">Join The Waitlist</span>
+              <span className="sm:hidden">{ctaText.mobile}</span>
+              <span className="hidden sm:inline">{ctaText.desktop}</span>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path
                   d="M2 7h10M7 2l5 5-5 5"
@@ -106,8 +123,7 @@ export function WaitlistInline({ compact = false }: { compact?: boolean }) {
           state === "idle" && "text-ink-500",
         )}
       >
-        {message ??
-          (compact ? "" : "Join 2,140 others who've already left the blank-page era.")}
+        {message ?? helper ?? (compact ? "" : "No spam, no noise — just founder updates.")}
       </div>
     </form>
   );
