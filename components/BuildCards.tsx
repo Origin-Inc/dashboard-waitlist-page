@@ -79,9 +79,10 @@ function CardRow({ card, index }: { card: Card; index: number }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="flex flex-col gap-5"
+      style={{ willChange: "transform, opacity", WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden" }}
     >
       <div className="relative aspect-[1400/939] w-full overflow-hidden rounded-2xl bg-white shadow-[0_18px_40px_-20px_rgba(14,21,64,0.25),0_2px_6px_-2px_rgba(14,21,64,0.08)] ring-1 ring-ink-950/5">
         <Image

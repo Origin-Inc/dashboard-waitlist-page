@@ -29,26 +29,28 @@ export function HeroRotatingPhrase() {
   }, []);
 
   return (
-    <span className="relative inline align-baseline">
-      <AnimatePresence mode="wait">
+    <span className="relative inline-block align-baseline">
+      <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={idx}
-          initial={{ opacity: 0, y: "0.35em" }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: "-0.35em" }}
+          exit={{ opacity: 0, y: -14 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="font-normal italic"
-          style={{ display: "inline-block", fontFamily: "var(--font-fraunces), ui-serif, Georgia, serif" }}
+          className="inline-block font-normal italic"
+          style={{
+            fontFamily: "var(--font-fraunces), ui-serif, Georgia, serif",
+            WebkitTextFillColor: "#fcd065",
+            color: "#fcd065",
+            textShadow: "0 4px 12px rgba(0,0,0,0.45)",
+            // Promote to its own compositor layer so the remount paint cycle
+            // doesn't flash on iOS Safari / mobile Chromium.
+            willChange: "transform, opacity",
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+          }}
         >
-          <span
-            style={{
-              WebkitTextFillColor: "#fcd065",
-              color: "#fcd065",
-              textShadow: "0 4px 12px rgba(0,0,0,0.45)",
-            }}
-          >
-            {PHRASES[idx]}
-          </span>
+          {PHRASES[idx]}
         </motion.span>
       </AnimatePresence>
     </span>

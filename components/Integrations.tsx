@@ -76,9 +76,10 @@ export function Integrations() {
               key={it.key}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-row items-center gap-4 text-left sm:flex-col sm:items-center sm:gap-0 sm:text-center"
+              style={{ willChange: "transform, opacity", WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden" }}
             >
               <div className="relative h-12 w-12 shrink-0 sm:h-14 sm:w-14">
                 <Image
