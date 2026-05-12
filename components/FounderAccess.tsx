@@ -21,7 +21,7 @@ export function FounderAccess({ className }: Props) {
         </span>
         <span aria-hidden className="h-px w-6 bg-ink-200" />
       </div>
-      <ul className="grid grid-cols-1 gap-2 text-left sm:grid-cols-2 sm:gap-x-4 sm:gap-y-2.5">
+      <ul className="mx-auto grid w-fit grid-cols-1 gap-2 text-left sm:w-full sm:grid-cols-2 sm:gap-x-4 sm:gap-y-2.5">
         {BENEFITS.map((b) => (
           <li key={b.label} className="flex items-start gap-2.5">
             <Check />
