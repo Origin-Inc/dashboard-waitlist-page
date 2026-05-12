@@ -123,7 +123,7 @@ export function WaitlistInline({
           state === "idle" && "text-ink-500",
         )}
       >
-        {message ?? helper ?? (compact ? "" : "No spam, no noise — just founder updates.")}
+        {message ?? helper ?? ""}
       </div>
     </form>
   );
