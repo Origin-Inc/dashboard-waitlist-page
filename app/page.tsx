@@ -7,6 +7,12 @@ import { Integrations } from "@/components/Integrations";
 import { Waitlist } from "@/components/Waitlist";
 import { Footer } from "@/components/Footer";
 
+// The Waitlist section reads live signup counts from Supabase + the deterministic
+// momentum formula. Without this, Next.js statically prerenders the page at build
+// time and refreshes show a frozen build-time number while polled clients see the
+// current one — causing visible drift on refresh.
+export const dynamic = "force-dynamic";
+
 export default function Page() {
   return (
     <main className="relative overflow-hidden bg-white text-ink-950">
