@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+import { useReveal } from "@/lib/useReveal";
 
 type Integration = {
   key: string;
@@ -72,36 +73,39 @@ export function Integrations() {
 
         <div className="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 gap-x-10 gap-y-5 sm:mt-16 sm:grid-cols-2 sm:gap-x-14 sm:gap-y-10 lg:grid-cols-3">
           {integrations.map((it, i) => (
-            <motion.div
-              key={it.key}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-row items-center gap-4 text-left sm:flex-col sm:items-center sm:gap-0 sm:text-center"
-              style={{ willChange: "transform, opacity", WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden" }}
-            >
-              <div className="relative h-12 w-12 shrink-0 sm:h-14 sm:w-14">
-                <Image
-                  src={it.src}
-                  alt={`${it.name} logo`}
-                  fill
-                  className="object-contain"
-                  sizes="56px"
-                />
-              </div>
-              <div className="min-w-0 flex-1 sm:flex-none">
-                <h3 className="text-[16px] font-extrabold tracking-[-0.02em] text-ink-950 sm:mt-5 sm:text-[18px]">
-                  {it.name}
-                </h3>
-                <p className="mt-1 text-[13.5px] leading-[1.5] text-ink-600 sm:mt-2 sm:max-w-[34ch] sm:text-[14px] sm:leading-[1.55]">
-                  {it.desc}
-                </p>
-              </div>
-            </motion.div>
+            <IntegrationRow key={it.key} it={it} index={i} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function IntegrationRow({ it, index }: { it: Integration; index: number }) {
+  const { ref, revealed } = useReveal<HTMLDivElement>(0.2);
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-row items-center gap-4 text-left transition-[opacity,transform] duration-[500ms] ease-out sm:flex-col sm:items-center sm:gap-0 sm:text-center",
+        revealed ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0",
+      )}
+      style={{
+        transitionDelay: `${index * 40}ms`,
+        willChange: revealed ? "auto" : "opacity, transform",
+      }}
+    >
+      <div className="relative h-12 w-12 shrink-0 sm:h-14 sm:w-14">
+        <Image src={it.src} alt={`${it.name} logo`} fill className="object-contain" sizes="56px" />
+      </div>
+      <div className="min-w-0 flex-1 sm:flex-none">
+        <h3 className="text-[16px] font-extrabold tracking-[-0.02em] text-ink-950 sm:mt-5 sm:text-[18px]">
+          {it.name}
+        </h3>
+        <p className="mt-1 text-[13.5px] leading-[1.5] text-ink-600 sm:mt-2 sm:max-w-[34ch] sm:text-[14px] sm:leading-[1.55]">
+          {it.desc}
+        </p>
+      </div>
+    </div>
   );
 }

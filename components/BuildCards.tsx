@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+import { useReveal } from "@/lib/useReveal";
 
 export function BuildCards() {
   return (
@@ -75,14 +76,18 @@ type Card = {
 };
 
 function CardRow({ card, index }: { card: Card; index: number }) {
+  const { ref, revealed } = useReveal<HTMLDivElement>(0.2);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="flex flex-col gap-5"
-      style={{ willChange: "transform, opacity", WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden" }}
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-col gap-5 transition-[opacity,transform] duration-[600ms] ease-out",
+        revealed ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
+      )}
+      style={{
+        transitionDelay: `${(index % 2) * 80}ms`,
+        willChange: revealed ? "auto" : "opacity, transform",
+      }}
     >
       <div className="relative aspect-[1400/939] w-full overflow-hidden rounded-2xl bg-white shadow-[0_18px_40px_-20px_rgba(14,21,64,0.25),0_2px_6px_-2px_rgba(14,21,64,0.08)] ring-1 ring-ink-950/5">
         <Image
@@ -101,7 +106,7 @@ function CardRow({ card, index }: { card: Card; index: number }) {
           {card.description}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 
 const PHRASES = [
   "perfect command center",
   "financial planner that doesn't suck",
   "automatic property analyzer",
-  "revenue operations hub",
+  "your revenue operations hub",
   "client intake command center",
   "anxiety-soothing dashboard",
   "3-kid summer camp logistics hub",
@@ -19,46 +18,51 @@ const PHRASES = [
 ];
 
 const ROTATE_MS = 3000;
+const FADE_MS = 260;
 
+/**
+ * Pure CSS opacity crossfade — no Framer Motion, no remount, no AnimatePresence.
+ *
+ * The previous AnimatePresence + mode="wait" approach caused visible flash on
+ * iOS Safari / mobile Chromium because the remount + JS-driven transform
+ * setting races with the browser's paint scheduler. Here a single span persists
+ * for the lifetime of the component; we just animate its opacity via CSS while
+ * swapping its text content between fades.
+ */
 export function HeroRotatingPhrase() {
   const [idx, setIdx] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i + 1) % PHRASES.length), ROTATE_MS);
-    return () => clearInterval(t);
+    let swapTimer: ReturnType<typeof setTimeout> | null = null;
+    const tick = setInterval(() => {
+      setVisible(false);
+      swapTimer = setTimeout(() => {
+        setIdx((i) => (i + 1) % PHRASES.length);
+        setVisible(true);
+      }, FADE_MS);
+    }, ROTATE_MS);
+
+    return () => {
+      clearInterval(tick);
+      if (swapTimer) clearTimeout(swapTimer);
+    };
   }, []);
 
   return (
-    <span className="relative inline align-baseline">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={idx}
-          initial={{ opacity: 0, y: "0.35em" }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: "-0.35em" }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="font-normal italic"
-          style={{
-            display: "inline-block",
-            fontFamily: "var(--font-fraunces), ui-serif, Georgia, serif",
-            // Promote to its own compositor layer so the remount paint cycle
-            // doesn't flash on iOS Safari / mobile Chromium.
-            willChange: "transform, opacity",
-            WebkitBackfaceVisibility: "hidden",
-            backfaceVisibility: "hidden",
-          }}
-        >
-          <span
-            style={{
-              WebkitTextFillColor: "#fcd065",
-              color: "#fcd065",
-              textShadow: "0 4px 12px rgba(0,0,0,0.45)",
-            }}
-          >
-            {PHRASES[idx]}
-          </span>
-        </motion.span>
-      </AnimatePresence>
+    <span
+      className="inline-block font-normal italic"
+      style={{
+        fontFamily: "var(--font-fraunces), ui-serif, Georgia, serif",
+        WebkitTextFillColor: "#fcd065",
+        color: "#fcd065",
+        textShadow: "0 4px 12px rgba(0,0,0,0.45)",
+        opacity: visible ? 1 : 0,
+        transition: `opacity ${FADE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+        willChange: "opacity",
+      }}
+    >
+      {PHRASES[idx]}
     </span>
   );
 }
