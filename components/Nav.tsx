@@ -9,7 +9,7 @@ export function Nav() {
         className="pointer-events-none absolute inset-0 -z-10 backdrop-blur-sm"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.08) 80%, rgba(0,0,0,0) 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 100%)",
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)",
         }}
       />
