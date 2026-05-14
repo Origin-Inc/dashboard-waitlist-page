@@ -3,10 +3,10 @@ import { Logo } from "./Logo";
 
 export function Nav() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="relative z-50 sm:fixed sm:inset-x-0 sm:top-0">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 backdrop-blur-sm"
+        className="pointer-events-none absolute inset-0 -z-10 hidden backdrop-blur-sm sm:block"
         style={{
           background:
             "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0) 100%)",
