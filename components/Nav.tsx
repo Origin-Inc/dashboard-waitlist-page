@@ -4,6 +4,13 @@ import { Logo } from "./Logo";
 export function Nav() {
   return (
     <header className="relative z-50 sm:fixed sm:inset-x-0 sm:top-0">
+      {/* Mobile overlay: solid translucent black matching the top of the hero's overlay (rgba(0,0,0,0.65)) so the nav→hero transition is seamless */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 backdrop-blur-sm sm:hidden"
+        style={{ background: "rgba(0,0,0,0.65)" }}
+      />
+      {/* Desktop overlay: gradient fade so the fixed nav blends into the hero artwork */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 hidden backdrop-blur-sm sm:block"
