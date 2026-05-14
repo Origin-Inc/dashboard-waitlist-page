@@ -112,16 +112,16 @@ function CardRow({ card, index }: { card: Card; index: number }) {
 
 const CARDS: Card[] = [
   {
+    title: "Dashboards",
+    description:
+      "Build a personalized \"Second Brain\" that organizes your projects, tasks, and thoughts in one place.",
+    image: { src: "/examples/command_centers_opt.webp", alt: "Dashboard example" },
+  },
+  {
     title: "Websites",
     description:
       "Launch professional portfolios, sales pages, or informational sites, no developers needed.",
     image: { src: "/examples/website_opt.webp", alt: "Website example" },
-  },
-  {
-    title: "Command Centers",
-    description:
-      "Build a personalized \"Second Brain\" that organizes your projects, tasks, and thoughts in one place.",
-    image: { src: "/examples/command_centers_opt.webp", alt: "Command center example" },
   },
   {
     title: "Smart Trackers",
