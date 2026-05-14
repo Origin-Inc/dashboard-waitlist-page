@@ -40,7 +40,7 @@ export function InsiderStats({
   return (
     <div
       className={cn(
-        "group inline-flex w-full max-w-[420px] items-center gap-3 rounded-full px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5",
+        "group inline-flex items-center gap-3 rounded-full px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5",
         variant === "strong" ? "glass-strong" : "glass",
         className,
       )}

@@ -92,7 +92,7 @@ function HeroCopy({ total, thisWeek }: { total: number; thisWeek: number }) {
       </div>
 
       <div className="mx-auto mt-5 max-w-[560px] text-left sm:mt-6">
-        <WaitlistInline cta="early" glass="strong" />
+        <WaitlistInline cta="early" glass="strong" size="compact" />
       </div>
 
 

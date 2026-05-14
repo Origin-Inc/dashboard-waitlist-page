@@ -5,18 +5,22 @@ import { cn } from "@/lib/utils";
 
 type CtaVariant = "default" | "founder" | "early";
 type GlassVariant = "default" | "strong";
+type Size = "default" | "compact";
 
 export function WaitlistInline({
   compact = false,
   cta = "default",
   helper,
   glass: glassVariant = "default",
+  size = "default",
 }: {
   compact?: boolean;
   cta?: CtaVariant;
   helper?: string;
   /** "strong" uses a nearly-opaque glass — for use on dark backgrounds like the hero. */
   glass?: GlassVariant;
+  /** "compact" shrinks the pill height/padding for the hero. */
+  size?: Size;
 }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "ok" | "err">("idle");
@@ -59,7 +63,8 @@ export function WaitlistInline({
     <form onSubmit={submit} noValidate aria-label="Join the waitlist">
       <div
         className={cn(
-          "group flex flex-row items-center gap-1 rounded-full p-1 pl-2 sm:gap-1.5 sm:p-1.5",
+          "group flex flex-row items-center gap-1 rounded-full pl-2",
+          size === "compact" ? "p-0.5 sm:gap-1 sm:p-1" : "p-1 sm:gap-1.5 sm:p-1.5",
           glassVariant === "strong" ? "glass-strong" : "glass",
           state === "err" && "ring-2 ring-rose-300",
           state === "ok" && "ring-2 ring-emerald-300",
@@ -87,14 +92,22 @@ export function WaitlistInline({
             placeholder="Your email…"
             autoComplete="email"
             disabled={state === "loading"}
-            className="peer min-w-0 flex-1 bg-transparent px-1 py-2 text-[13.5px] font-medium text-ink-950 placeholder:text-ink-400 focus:outline-none disabled:opacity-60 sm:py-2.5 sm:text-[15px]"
+            className={cn(
+              "peer min-w-0 flex-1 bg-transparent px-1 font-medium text-ink-950 placeholder:text-ink-400 focus:outline-none disabled:opacity-60",
+              size === "compact"
+                ? "py-1.5 text-[13px] sm:py-2 sm:text-[14px]"
+                : "py-2 text-[13.5px] sm:py-2.5 sm:text-[15px]",
+            )}
           />
         </div>
         <button
           type="submit"
           disabled={state === "loading"}
           className={cn(
-            "inline-flex h-9 w-auto shrink-0 items-center justify-center gap-1.5 rounded-full bg-ink-950 px-3 text-[11.5px] font-bold uppercase tracking-[0.1em] text-white transition-all hover:bg-signal-600 active:scale-[0.98] sm:h-12 sm:px-5 sm:text-[13px]",
+            "inline-flex w-auto shrink-0 items-center justify-center gap-1.5 rounded-full bg-ink-950 font-bold uppercase tracking-[0.1em] text-white transition-all hover:bg-signal-600 active:scale-[0.98]",
+            size === "compact"
+              ? "h-8 px-2.5 text-[11px] sm:h-10 sm:px-4 sm:text-[12px]"
+              : "h-9 px-3 text-[11.5px] sm:h-12 sm:px-5 sm:text-[13px]",
             state === "loading" && "opacity-80",
           )}
         >
