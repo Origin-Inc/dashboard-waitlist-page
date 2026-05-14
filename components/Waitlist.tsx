@@ -36,7 +36,7 @@ export async function Waitlist() {
           <WaitlistInline
             compact
             cta="founder"
-            helper="Invite-only batches · Watch your inbox on Tuesdays"
+            helper="Invite-only batches"
           />
         </div>
 
