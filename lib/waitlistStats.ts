@@ -25,10 +25,10 @@ export type WaitlistStatsConfig = {
 };
 
 export const DEFAULT_STATS_CONFIG: WaitlistStatsConfig = {
-  baselineCount: 2140,
+  baselineCount: 1431,
   baselineDateISO: "2026-04-01",
-  minWeeklyGrowth: 90,
-  maxWeeklyGrowth: 240,
+  minWeeklyGrowth: 17,
+  maxWeeklyGrowth: 37,
   seed: "odeun-waitlist-v1",
 };
 
