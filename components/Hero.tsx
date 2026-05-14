@@ -2,8 +2,11 @@ import { Sparkle } from "./Sparkle";
 import { HeroGallery } from "./HeroGallery";
 import { HeroRotatingPhrase } from "./HeroRotatingPhrase";
 import { WaitlistInline } from "./WaitlistInline";
+import { InsiderStats } from "./InsiderStats";
+import { getCombinedStats } from "@/lib/signups";
 
-export function Hero() {
+export async function Hero() {
+  const { total, thisWeek } = await getCombinedStats();
   return (
     <section className="relative isolate w-full overflow-hidden sm:min-h-[900px] lg:min-h-[1020px]">
       {/* --- Background: justified artifact wall --- */}
@@ -43,13 +46,13 @@ export function Hero() {
 
       {/* --- Foreground: bare text, fully transparent container --- */}
       <div className="relative z-10 mx-auto flex max-w-[1320px] items-center justify-center px-5 pb-20 pt-24 sm:min-h-[900px] sm:px-8 sm:pb-32 sm:pt-32 lg:min-h-[1020px] lg:pb-36 lg:pt-36">
-        <HeroCopy />
+        <HeroCopy total={total} thisWeek={thisWeek} />
       </div>
     </section>
   );
 }
 
-function HeroCopy() {
+function HeroCopy({ total, thisWeek }: { total: number; thisWeek: number }) {
   return (
     <div className="relative isolate w-full max-w-[760px] text-center">
       <div
@@ -84,11 +87,15 @@ function HeroCopy() {
         nervous-system trackers — if you can chat it, we can build it.
       </p>*/}
 
-      <div className="mx-auto mt-8 max-w-[560px] text-left sm:mt-10">
+      <div className="mt-7 flex justify-center sm:mt-9">
+        <InsiderStats total={total} thisWeek={thisWeek} />
+      </div>
+
+      <div className="mx-auto mt-5 max-w-[560px] text-left sm:mt-6">
         <WaitlistInline cta="early" />
       </div>
 
-      
+
     </div>
   );
 }
