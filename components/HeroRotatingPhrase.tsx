@@ -56,7 +56,11 @@ export function HeroRotatingPhrase() {
         fontFamily: "var(--font-fraunces), ui-serif, Georgia, serif",
         WebkitTextFillColor: "#fcd065",
         color: "#fcd065",
-        textShadow: "0 4px 12px rgba(0,0,0,0.45)",
+        // Layered halo: tight white outline for separation, soft diffuse glow
+        // for elegance, and a subtle dark drop to ground the yellow on the
+        // brighter parts of the hero artwork.
+        textShadow:
+          "0 0 1px rgba(255,255,255,0.85), 0 0 10px rgba(255,255,255,0.35), 0 0 24px rgba(255,255,255,0.18), 0 2px 8px rgba(0,0,0,0.35)",
         opacity: visible ? 1 : 0,
         transition: `opacity ${FADE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
         willChange: "opacity",
