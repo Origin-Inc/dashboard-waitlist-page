@@ -10,6 +10,8 @@ type Props = {
   thisWeek: number;
   /** How often to refetch the centralized stats, in ms. Default 30s. */
   pollIntervalMs?: number;
+  /** "strong" uses a nearly-opaque glass — for use on dark backgrounds. */
+  variant?: "default" | "strong";
   className?: string;
 };
 
@@ -17,6 +19,7 @@ export function InsiderStats({
   total,
   thisWeek,
   pollIntervalMs = 30_000,
+  variant = "default",
   className,
 }: Props) {
   const [liveTotal, setLiveTotal] = useState(total);
@@ -37,7 +40,8 @@ export function InsiderStats({
   return (
     <div
       className={cn(
-        "group glass inline-flex w-full max-w-[420px] items-center gap-3 rounded-full px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5",
+        "group inline-flex w-full max-w-[420px] items-center gap-3 rounded-full px-3 py-2 sm:gap-4 sm:px-4 sm:py-2.5",
+        variant === "strong" ? "glass-strong" : "glass",
         className,
       )}
       aria-label="Waitlist insider numbers"

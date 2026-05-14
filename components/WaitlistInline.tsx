@@ -4,15 +4,19 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 type CtaVariant = "default" | "founder" | "early";
+type GlassVariant = "default" | "strong";
 
 export function WaitlistInline({
   compact = false,
   cta = "default",
   helper,
+  glass: glassVariant = "default",
 }: {
   compact?: boolean;
   cta?: CtaVariant;
   helper?: string;
+  /** "strong" uses a nearly-opaque glass — for use on dark backgrounds like the hero. */
+  glass?: GlassVariant;
 }) {
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "ok" | "err">("idle");
@@ -55,7 +59,8 @@ export function WaitlistInline({
     <form onSubmit={submit} noValidate aria-label="Join the waitlist">
       <div
         className={cn(
-          "group glass flex flex-row items-center gap-1 rounded-full p-1 pl-2 sm:gap-1.5 sm:p-1.5",
+          "group flex flex-row items-center gap-1 rounded-full p-1 pl-2 sm:gap-1.5 sm:p-1.5",
+          glassVariant === "strong" ? "glass-strong" : "glass",
           state === "err" && "ring-2 ring-rose-300",
           state === "ok" && "ring-2 ring-emerald-300",
         )}
@@ -123,7 +128,7 @@ export function WaitlistInline({
           state === "idle" && "text-ink-500",
         )}
       >
-        {message ?? helper ?? (compact ? "" : "No spam, no noise — just founder updates.")}
+        {message ?? helper ?? (compact ? "" : "No spam, no noise, just founder updates.")}
       </div>
     </form>
   );
