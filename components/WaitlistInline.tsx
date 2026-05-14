@@ -43,7 +43,7 @@ export function WaitlistInline({
         return;
       }
       setState("ok");
-      setMessage("You're in. Watch your inbox — invites drop on Tuesdays.");
+      setMessage("You're in. Check your inbox.");
       setEmail("");
     } catch {
       setState("err");
@@ -123,7 +123,7 @@ export function WaitlistInline({
           state === "idle" && "text-ink-500",
         )}
       >
-        {message ?? helper ?? ""}
+        {message ?? helper ?? (compact ? "" : "No spam, no noise — just founder updates.")}
       </div>
     </form>
   );
