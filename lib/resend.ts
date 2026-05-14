@@ -56,8 +56,8 @@ function welcomeHtml(): string {
 <p style="margin:0 0 16px;">Hi, I'm Joey, from the Odeun team.</p>
 <p style="margin:0 0 16px;">Let me guess: you built something in Claude. Then the conversation ended and it was gone.</p>
 <p style="margin:0 0 16px;">Odeun is where what you build in Claude actually lives. Saved, with real data, that you can come back to tomorrow. You're in the first wave. We're letting people in as we're ready for them, not on a schedule, but you're early.</p>
-<p style="margin:0 0 16px;">What that gets you: founding member access before public launch, build notes from me directly (not marketing), and a real say in what we ship next.</p>
-<p style="margin:0 0 16px;">One thing before you go — reply to this email and tell me: what's the one thing you've been trying to build in Claude but couldn't get to stick? One sentence is enough. I read every reply, and it shapes what ships first.</p>
+<p style="margin:0 0 16px;">What that gets you: founding member access before public launch, build notes from me directly, and a real say in what we ship next.</p>
+<p style="margin:0 0 16px;">One thing before you go, reply to this email and tell me: what's the one thing you've been trying to build in Claude but couldn't get to stick? One sentence is enough. I read every reply, and it shapes what ships first.</p>
 <p style="margin:0;">Joey</p>
 </div>
 </body>
@@ -71,9 +71,9 @@ Let me guess: you built something in Claude. Then the conversation ended and it 
 
 Odeun is where what you build in Claude actually lives. Saved, with real data, that you can come back to tomorrow. You're in the first wave. We're letting people in as we're ready for them, not on a schedule, but you're early.
 
-What that gets you: founding member access before public launch, build notes from me directly (not marketing), and a real say in what we ship next.
+What that gets you: founding member access before public launch, build notes from me directly, and a real say in what we ship next.
 
-One thing before you go — reply to this email and tell me: what's the one thing you've been trying to build in Claude but couldn't get to stick? One sentence is enough. I read every reply, and it shapes what ships first.
+One thing before you go, reply to this email and tell me: what's the one thing you've been trying to build in Claude but couldn't get to stick? One sentence is enough. I read every reply, and it shapes what ships first.
 
 Joey`;
 }
