@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { hanken, instrument, mono, fraunces } from "./fonts";
+import { MetaPixel } from "@/components/MetaPixel";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${hanken.variable} ${instrument.variable} ${mono.variable} ${fraunces.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <MetaPixel />
+        {children}
+      </body>
     </html>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { isValidEmail } from "@/lib/email";
+import { fbq } from "@/lib/analytics";
 
 type CtaVariant = "default" | "founder" | "early";
 type GlassVariant = "default" | "strong";
@@ -72,6 +73,10 @@ export function WaitlistInline({
       setState("ok");
       setMessage("You're in. Check your inbox.");
       setEmail("");
+      // Fire the Meta Pixel conversion event so ad campaigns can optimize
+      // for waitlist signups. Tagged with the source so we can split by
+      // hero vs bottom form in Meta's reporting.
+      fbq("track", "Lead", { content_name: "waitlist_signup", source: compact ? "form" : "hero" });
     } catch {
       setState("err");
       setMessage("Network unavailable. Please try again.");
