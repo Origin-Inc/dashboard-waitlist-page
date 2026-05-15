@@ -10,7 +10,7 @@ function getResend(): Resend | null {
   return cached;
 }
 
-const REPLY_TO = "Joey from Odeun <emails@odeun.tech>";
+const REPLY_TO = "Joey from Odeun <joey@mail.odeun.io>";
 
 /**
  * Send a welcome email. Silently no-ops if Resend isn't configured —
