@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { storeSignup } from "@/lib/signups";
 import { sendWelcomeEmail } from "@/lib/resend";
+import { isValidEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
   try {
@@ -15,7 +14,7 @@ export async function POST(request: Request) {
     const email = (body.email ?? "").trim().toLowerCase();
     const source = (body.source ?? "unknown").slice(0, 32);
 
-    if (!email || !EMAIL_RE.test(email) || email.length > 320) {
+    if (!isValidEmail(email)) {
       return NextResponse.json(
         { ok: false, error: "That email doesn't look quite right." },
         { status: 400 },

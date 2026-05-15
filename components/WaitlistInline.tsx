@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { isValidEmail } from "@/lib/email";
 
 type CtaVariant = "default" | "founder" | "early";
 type GlassVariant = "default" | "strong";
@@ -33,9 +34,27 @@ export function WaitlistInline({
         ? { mobile: "Get access", desktop: "Get Early Access" }
         : { mobile: "Join", desktop: "Join The Waitlist" };
 
+  function onEmailChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value);
+    // Clear any prior error as soon as the user starts editing.
+    if (state === "err") {
+      setState("idle");
+      setMessage(null);
+    }
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (state === "loading") return;
+
+    // Client-side check — keeps obvious-malformed inputs from costing a round trip.
+    // Server still re-validates via the same `isValidEmail` shared in lib/email.ts.
+    if (!isValidEmail(email)) {
+      setState("err");
+      setMessage("That email doesn't look quite right.");
+      return;
+    }
+
     setState("loading");
     setMessage(null);
     try {
@@ -59,6 +78,9 @@ export function WaitlistInline({
     }
   }
 
+  const inputId = compact ? "email-compact" : "email-hero";
+  const statusId = `${inputId}-status`;
+
   return (
     <form onSubmit={submit} noValidate aria-label="Join the waitlist">
       <div
@@ -80,18 +102,22 @@ export function WaitlistInline({
               strokeLinejoin="round"
             />
           </svg>
-          <label htmlFor={compact ? "email-compact" : "email-hero"} className="sr-only">
+          <label htmlFor={inputId} className="sr-only">
             Email address
           </label>
           <input
-            id={compact ? "email-compact" : "email-hero"}
+            id={inputId}
             type="email"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={onEmailChange}
             placeholder="Your email…"
             autoComplete="email"
+            inputMode="email"
+            spellCheck={false}
             disabled={state === "loading"}
+            aria-invalid={state === "err" || undefined}
+            aria-describedby={statusId}
             className={cn(
               "peer min-w-0 flex-1 bg-transparent px-1 font-medium text-ink-950 placeholder:text-ink-400 focus:outline-none disabled:opacity-60",
               size === "compact"
@@ -132,6 +158,7 @@ export function WaitlistInline({
       </div>
 
       <div
+        id={statusId}
         role="status"
         aria-live="polite"
         className={cn(
